@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="wrap-coordinate-panel">
+        <canvas height="500" width="500"
+                id="canvasBack"
+                #canvasBack></canvas>
+        <canvas height="500" width="500"
+                id="canvas"
+                #canvas></canvas>
+      </div>
+
+      <div id="setupcoordinate-panel">
+        <!--Set main workspace's config -->
+        <p>Настройка рабочей области</p>
+        <div class="form-group row">
+          <label for="scale" class="col-2 col-form-label">Масштаб</label>
+          <div class="col-2">
+            <input class="form-control" type="text" [(ngModel)]="config.scale" id="scale" (input)="rerender()">
+          </div>
+        </div>
+
+        <hr/>
+        <div class="form-group">
+          <label>Цена деления</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Ось тока (I)</label>
+            <div class="col-3">
+              <div class="input-group">
+                <input class="form-control" type="text"  [(ngModel)]="config.xStepGrid" (input)="rerender()">
+                <span class="input-group-addon">А</span>
+              </div>
+            </div>
+            <label class="col-4 col-form-label">Ось времени (t)</label>
+            <div class="col-2">
+              <div class="input-group">
+                <input class="form-control" type="text"  [(ngModel)]="config.yStepGrid" (input)="rerender()">
+                <span class="input-group-addon">c</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+
+
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <button class="btn btn-primary" (click)="openModal(null)">Создать характеристику</button>
+
+      <div *ngIf="characteristics.length > 0">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Наименование</th>
+            <th>Цвет</th>
+            <th>Показать</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let characteristic of characteristics">
+            <td>{{characteristic.label == undefined || characteristic.label.trim() ==''? 'без имени': characteristic.label }}</td>
+            <td>
+              <div style="width:15px;height:15px; border:1px solid #efefef;"
+                   [style.background]="characteristic.color"></div>
+            </td>
+            <td><input type="checkbox" [(ngModel)]="characteristic.visable" (click)="changeVisable(characteristic)"/>
+            </td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="openModal(characteristic)">
+                  &#9998;</button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="deleteCharacteristic(characteristic)">
+                  &#10005;</button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+
+    </div>
+
+
+  </div>
+
+
+  <div class="col">
+
+
+  </div>
+</div>
+
+
+
