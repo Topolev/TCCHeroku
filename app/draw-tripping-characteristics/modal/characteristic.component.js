@@ -14,6 +14,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var CoordinatePlane_1 = require("../coordinate-panel/CoordinatePlane");
 var characteristic_service_1 = require("./characteristic.service");
 var Characteristic_1 = require("../coordinate-panel/Characteristic");
+var VoltageSteps_1 = require("../coordinate-panel/VoltageSteps");
 var CharacteristicComponent = (function () {
     function CharacteristicComponent(modalService, activeModal, characteristicService) {
         var _this = this;
@@ -22,11 +23,11 @@ var CharacteristicComponent = (function () {
         this.characteristicService = characteristicService;
         this.characteristic = new Characteristic_1.Characteristic();
         this.grid = null;
+        this.voltageSteps = VoltageSteps_1.defaultVoltageSteps;
         characteristicService.currentCharacteristic$.subscribe(function (characteristic) {
             _this.characteristic = characteristic ? characteristic : new Characteristic_1.Characteristic();
             _this.idCharacteristic = characteristic ? characteristic.id : Date.now();
-            console.log(_this.grid);
-            //this.grid.updateAllCharacteristic([this.characteristic]);
+            _this.characteristic.voltageStep = characteristic ? characteristic.voltageStep : _this.voltageSteps[0].value;
         });
     }
     CharacteristicComponent.prototype.ngOnInit = function () {

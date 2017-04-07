@@ -18,6 +18,8 @@ var ConfigCoordinatePanel_1 = require("./coordinate-panel/ConfigCoordinatePanel"
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var characteristic_component_1 = require("./modal/characteristic.component");
 var characteristic_service_1 = require("./modal/characteristic.service");
+var CurrentSlice_1 = require("./coordinate-panel/CurrentSlice");
+var VoltageSteps_1 = require("./coordinate-panel/VoltageSteps");
 var CoordinatePlaneComponent = (function () {
     function CoordinatePlaneComponent(modalService, chactericticService) {
         var _this = this;
@@ -25,6 +27,8 @@ var CoordinatePlaneComponent = (function () {
         this.chactericticService = chactericticService;
         this.grid = null;
         this.characteristics = [];
+        this.currentSlices = [];
+        this.voltageSteps = VoltageSteps_1.defaultVoltageSteps;
         this.config = Object.assign({}, ConfigCoordinatePanel_1.defaultConfig);
         this.chactericticService.newCharacteristic$.subscribe(function (characteristic) {
             _this.setCharacteristic(characteristic);
@@ -59,8 +63,19 @@ var CoordinatePlaneComponent = (function () {
         characteristic.visable = !characteristic.visable;
         this.grid.addCharacteristics(this.characteristics);
     };
+    CoordinatePlaneComponent.prototype.changeCurrentSlices = function () {
+        this.grid.addCurrentSlices(this.currentSlices);
+    };
     CoordinatePlaneComponent.prototype.deleteCharacteristic = function (characteristic) {
         this.characteristics.splice(this.characteristics.indexOf(characteristic), 1);
+    };
+    CoordinatePlaneComponent.prototype.addCurrentSlice = function () {
+        this.currentSlices.push(new CurrentSlice_1.CurrentSlice());
+        this.changeCurrentSlices();
+    };
+    CoordinatePlaneComponent.prototype.deleteCurrentSlice = function (currentSlice) {
+        this.currentSlices.splice(this.currentSlices.indexOf(currentSlice), 1);
+        this.changeCurrentSlices();
     };
     return CoordinatePlaneComponent;
 }());

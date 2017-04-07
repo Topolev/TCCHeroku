@@ -77,13 +77,16 @@ var CreateNewArea = (function () {
             else {
                 _this.onNewArea.emit(_this.currentArea);
             }
-            _this.selectedAreaTemplate = null;
-            _this.label = "";
-            _this.currentArea = null;
-            jQuery('body').addClass('modal-open');
+            _this.clearAllData();
         }, function () {
-            jQuery('body').addClass('modal-open');
+            _this.clearAllData();
         });
+    };
+    CreateNewArea.prototype.clearAllData = function () {
+        this.selectedAreaTemplate = null;
+        this.label = "";
+        this.currentArea = null;
+        jQuery('body').addClass('modal-open');
     };
     return CreateNewArea;
 }());

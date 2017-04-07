@@ -22,6 +22,7 @@ exports.defaultConfig = {
     marginVertical: 40,
     colorMainAxis: "red",
     colorIntermediateAxis: "rgba(0,0,0,0.1)",
-    font: "14px Arial"
+    font: "14px Arial",
+    choosenVoltage: undefined
 };
 //# sourceMappingURL=ConfigCoordinatePanel.js.map
